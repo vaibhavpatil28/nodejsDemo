@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        var objO = new ActiveXObject('Outlook.Application');
+        var objNS = objO.GetNameSpace('MAPI');
+        var mItm = objO.CreateItem(0);
+        mItm.Display();
+        mItm.To = p_recipient;
+        mItm.Subject = p_subject;
+        mItm.Body = p_body;
+        mItm.GetInspector.WindowState = 2;
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

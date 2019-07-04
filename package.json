@@ -1,0 +1,26 @@
+{
+  "name": "nodejsdemo",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thevaibhavpatil/nodejsDemo.git"
+  },
+  "author": "Vaibhav Patil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thevaibhavpatil/nodejsDemo/issues"
+  },
+  "homepage": "https://github.com/thevaibhavpatil/nodejsDemo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1"
+  }
+}
