@@ -3,8 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // var upload = multer({ dest: `${UPLOAD_PATH}/`}); // apply filter
 const app = express();
-app.use(bodyParser.urlencoded({extended: true}))
-
+const router = express.Router();
+app.use(bodyParser.urlencoded({ extended: true }))
+var ejs = require('ejs')
+app.set('view engine', 'ejs')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 const fileUploadRoute = require('./routes/upload-file-using-multer');
 
+app.use('/', express.static('views'));
 
 app.get('/', (req, res) => {
   var sql = require("mssql");
@@ -40,12 +43,11 @@ app.get('/', (req, res) => {
 
         // send records as a response
         res.send(recordset);
-
       });
   });
 });
 
-app.get('/upload-file',function(req,res){
+app.get('/upload-file', function (req, res) {
   res.sendFile(__dirname + '/views/upload-file.html');
 });
 

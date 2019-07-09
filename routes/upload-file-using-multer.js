@@ -1,7 +1,9 @@
 
 const express = require('express');
+const app = express();
 const fileUploadRouter = express.Router();
 const multer = require('multer');
+var path = require('path')
 
 // SET STORAGE
 const storage = multer.diskStorage({
@@ -14,9 +16,13 @@ const storage = multer.diskStorage({
   })
    
 const upload = multer({ storage: storage });
+
+fileUploadRouter.get('/uploadfile', function (req, res) {
+  res.render(path.join(__dirname, './../views', 'upload-file'));
+});
   
 // Uploading a Single File
-router.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
+fileUploadRouter.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
     const file = req.file
     if (!file) {
       const error = new Error('Please upload a file')
@@ -28,7 +34,7 @@ router.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
   });
   
   //Uploading multiple files
-  router.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
+  fileUploadRouter.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
     const files = req.files
     if (!files) {
       const error = new Error('Please choose files')
