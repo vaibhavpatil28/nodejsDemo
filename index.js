@@ -1,31 +1,16 @@
 const UPLOAD_PATH = 'public/'
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const multer = require('multer');
 // var upload = multer({ dest: `${UPLOAD_PATH}/`}); // apply filter
-var upload = multer({ dest: 'public/' });
-const crypto = require('crypto');
+const app = express();
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
 
-
-const storage = multer.diskStorage({
-  destination: 'some-destination',
-  filename: function (req, file, callback) {
-  }
-});
-
-crypto.pseudoRandomBytes(16, function (err, raw) {
-  if (err) return callback(err);
-
-  callback(null, raw.toString('hex') + path.extname(file.originalname));
-});
-
+// Routes
+const fileUploadRoute = require('./routes/upload-file-using-multer');
 
 
 app.get('/', (req, res) => {
@@ -60,24 +45,12 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/', upload.single('avatar'), (req, res) => {
-  if (!req.file) {
-    console.log("No file received");
-    return res.send({
-      success: false
-    });
-
-  } else {
-    console.log('file received');
-    const host = req.host;
-    const filePath = req.protocol + "://" + host + '/' + req.file.path;
-    console.log('filePath', filePath);
-    return res.send({
-      success: true
-    })
-  }
+app.get('/upload-file',function(req,res){
+  res.sendFile(__dirname + '/views/upload-file.html');
 });
 
+app.use('/file', fileUploadRoute);
+
 app.listen(3000, () => {
-  console.log('Example app listening on port 8000!')
+  console.log('Example app listening on port 3000!')
 });
