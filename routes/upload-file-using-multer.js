@@ -18,7 +18,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 fileUploadRouter.get('/uploadfile', function (req, res) {
-  res.render(path.join(__dirname, './../views', 'upload-file'));
+  // res.render(path.join(__dirname, './../views', 'upload-file'));
+  res.render(path.join(__dirname, './../views', 'file-upload.html'), { title: 'About dogs', message: 'Dogs rock!' });
 });
   
 // Uploading a Single File

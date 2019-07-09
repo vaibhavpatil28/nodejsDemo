@@ -5,8 +5,14 @@ const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }))
-var ejs = require('ejs')
-app.set('view engine', 'ejs')
+// var ejs = require('ejs')
+// app.set('view engine', 'ejs')
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
+
+app.get('/', require('./routes').index);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
